@@ -58,7 +58,7 @@ public class AuthController {
 	}
 	
 	@GetMapping("/roles")
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public List<Role> getRoles(){
 		return roleRepo.findAll();
 	}
