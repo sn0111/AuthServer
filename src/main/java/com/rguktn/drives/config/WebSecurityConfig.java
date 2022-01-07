@@ -54,12 +54,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 //		http.cors().and().authorizeRequests().antMatchers("/api/auth/**").permitAll();
 		  http.authorizeRequests().antMatchers("/swagger-ui/**").permitAll()
-		  .antMatchers("/api/auth/user").permitAll().and().cors().and().csrf().disable();
+		  .antMatchers("/api/auth/user").permitAll().and().cors().and().csrf().disable().httpBasic().disable();
 	}
 	  
 	  @Override
 	  public void configure(WebSecurity web) throws Exception {
-	      web.ignoring().antMatchers("/swagger-ui/**").antMatchers("/v3/api-docs");
+	      web.ignoring().antMatchers("/swagger-ui/**").antMatchers("/v3/api-docs").antMatchers("/api/admin/**");
 	  }
 	  
 	    @Bean

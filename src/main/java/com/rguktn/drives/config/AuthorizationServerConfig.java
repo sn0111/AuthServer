@@ -1,7 +1,5 @@
 package com.rguktn.drives.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,14 +36,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		security.checkTokenAccess("isAuthenticated()");
+		security.allowFormAuthenticationForClients().checkTokenAccess("isAuthenticated()");
 	}
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		clients.inMemory().withClient("client").secret(passwordEncoder.encode("password"))
-		.authorizedGrantTypes("password","refresh_token").scopes("READ");
+		.authorizedGrantTypes("password","refresh_token").scopes("READ","WRITE").accessTokenValiditySeconds(18000);
 	}
 	  @Bean
 	  public JwtAccessTokenConverter jwtAccessTokenConverter() {
